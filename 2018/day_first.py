@@ -1,6 +1,4 @@
-def part_one():
-    file = "day 1.txt"
-    input_field = []
+def part_one(file):
     result = 0
     with open(file, "r") as input_file:
         for line in input_file.readlines():

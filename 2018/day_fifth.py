@@ -2,8 +2,8 @@ import string
 
 
 class Polymer:
-    def __init__(self):
-        self.hash = open("day 5.txt").read().strip()
+    def __init__(self, file):
+        self.hash = open(file).read().strip()
 
     @staticmethod
     def truncate_hash(hash):
@@ -29,10 +29,3 @@ class Polymer:
             if length < shortest_solved_hash:
                 shortest_solved_hash = length
         return shortest_solved_hash
-
-
-day_fifth = Polymer()
-part_one = day_fifth.truncate_hash(day_fifth.hash)
-part_two = day_fifth.get_most_reactant_char()
-print(part_one, part_two)
-# print(day_fifth.most_reactant_char + ": ", day_fifth.shortest_solved_hash)

@@ -9,14 +9,13 @@ class Guard:
         self.id = id
 
     def __repr__(self):
-        return  "#"  +str(self.id) + " slept time:  " + str(self.total_sleep_time)  + " \n\tmost frequented minut:  " + str(self.most_frequent_minute) + ":\n\t\t" + str(self.minute_frequency) + " minutes\n"
+        return "#" + str(self.id) + " slept time:  " + str(self.total_sleep_time) + " \n\tmost frequented minut:  " + str(self.most_frequent_minute) + ":\n\t\t" + str(self.minute_frequency) + " minutes\n"
 
 
 class Watch:
-    def __init__(self):
-        input_file = "day 4.txt"
+    def __init__(self, file):
         self.guard_dict = defaultdict(list)
-        self.__parse__(input_file)
+        self.__parse__(file)
         self.guards_list = []
 
     def __parse__(self, file):
@@ -73,9 +72,3 @@ class Watch:
             print(item)
 
         return guard.most_frequent_minute * guard.id
-
-
-day_four = Watch()
-day_four.parse_guards()
-print(day_four.comparator())  # 125444
-print(day_four.comparator("minute_frequency"))  # 18325

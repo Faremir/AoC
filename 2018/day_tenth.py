@@ -1,4 +1,3 @@
-from collections import defaultdict
 import re
 
 
@@ -39,8 +38,8 @@ class Plane:
     def print_plane(self):
         y_min, y_max = self.get_min_max("y_pos")
         x_min, x_max = plane.get_min_max("x_pos")
-        for height in range(y_min-1, y_max+1):
-            for width in range(x_min-1, x_max+1):
+        for height in range(y_min - 1, y_max + 1):
+            for width in range(x_min - 1, x_max + 1):
                 if any((point.y_pos == height and point.x_pos == width) for point in self.points):
                     print("#", end = "")
                 else:
@@ -64,7 +63,4 @@ class Plane:
                     point.x_pos -= point.velocity[0]
                     point.y_pos -= point.velocity[1]
                 self.print_plane()
-                return time-1
-
-
-
+                return time - 1

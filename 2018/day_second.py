@@ -19,13 +19,12 @@ class Product:
 
 
 class Products:
-    def __init__(self):
+    def __init__(self, file):
         self.product_list = []
-        self.file = "day 2.txt"
-        self.parse_products()
+        self.parse_products(file)
 
-    def parse_products(self):
-        with open(self.file, "r") as input_file:
+    def parse_products(self, file):
+        with open(file, "r") as input_file:
             for line in input_file.readlines():
                 product = Product()
                 product.id = line
@@ -52,8 +51,3 @@ class Products:
             if product.three_same_indexes:
                 tripled_chars += 1
         return doubled_chars * tripled_chars
-
-
-x = Products()
-print(x.get_correct_products())
-print(x.get_correct_hash())

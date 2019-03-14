@@ -18,8 +18,7 @@ class Claim:
 
 
 class Claims:
-    def __init__(self):
-        file = "day 3.txt"
+    def __init__(self, file):
         self.list_of_claims = []
         self.__parse__(file)
         self.claimed_indexes = defaultdict(int)
@@ -37,14 +36,14 @@ class Claims:
                 for w in range(claim.width):
                     self.claimed_indexes[(h + claim.top, w + claim.left)] += 1
 
-    def get_overlaped_area(self):
+    def get_overlapping_area(self):
         intersection_area = 0
         for (x, y), used_times in self.claimed_indexes.items():
             if used_times >= 2:
                 intersection_area += 1
         return intersection_area
 
-    def get_unoverlaped(self):
+    def get_not_overlapping(self):
         for claim in self.list_of_claims:
             for h in range(claim.height):
                 for w in range(claim.width):
@@ -55,8 +54,3 @@ class Claims:
                     break
             if not claim.is_invalid:
                 return claim.id
-
-
-day_three = Claims()
-print(day_three.get_overlaped_area())
-print(day_three.get_unoverlaped())
