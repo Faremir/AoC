@@ -8,12 +8,13 @@ class Area:
 
 
 class Grid:
-    def __init__(self):
+    def __init__(self, file = "input", distance = 10000):
         self.Areas = []
-        self.__parser__("day 6.txt")
+        self.__parser__(file)
         self.bottom = max(area.y for area in self.Areas)
         self.right = max(area.x for area in self.Areas)
         self.size_shared_region = 0
+        self.manhatan_dist = distance
 
     def __parser__(self, file):
         with open(file, "r") as input_file:
@@ -37,11 +38,11 @@ class Grid:
                     if y == 0 or x == 0 or x == self.right or y == self.bottom:
                         infinite_area.is_finite = False
 
-    def get_shared_size(self, manhatan_dist):
+    def get_shared_size(self):
 
         for y in range(self.bottom + 1):
             for x in range(self.right + 1):
-                self.size_shared_region += int(sum(abs(area.x - x) + abs(area.y - y) for area in self.Areas) < manhatan_dist)
+                self.size_shared_region += int(sum(abs(area.x - x) + abs(area.y - y) for area in self.Areas) < self.manhatan_dist)
 
     def print_grid(self):
 
@@ -51,5 +52,5 @@ class Grid:
 
 day_sixth = Grid()
 day_sixth.get_finite_sizes()
-day_sixth.get_shared_size(10000)
+day_sixth.get_shared_size()
 day_sixth.print_grid()

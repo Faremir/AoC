@@ -1,4 +1,3 @@
-# 405 players; last marble is worth 70953 points
 from collections import defaultdict
 
 
@@ -16,9 +15,9 @@ class Game:
         first   reference na prvni prvek seznamu
     """
 
-    def __init__(self, players_count, turns):
+    def __init__(self, file):
         self.players = defaultdict(int)
-
+        players_count, _, _, _, _, _, turns, _ = [int(data) for data in open(file).read().split(" ")]
         self.marble_value = 0
         self.current_player = 0
         self.players_count = players_count
@@ -46,10 +45,10 @@ class Game:
     @staticmethod
     def remove_marble(current):
         prev = current.prev
-        next = current.next
-        prev.next = next
-        next.prev = prev
-        return next
+        nextt = current.next
+        prev.next = nextt
+        nextt.prev = prev
+        return nextt
 
     @staticmethod
     def skip_marble(current):
@@ -82,13 +81,3 @@ class Game:
             if maximum < player:
                 maximum = player
         return maximum
-
-
-if __name__ == "__main__":
-    game = Game(405, 70953)
-    game.start_game()
-    print(game.game_score())
-
-    game = Game(405, 7095300)
-    game.start_game()
-    print(game.game_score())

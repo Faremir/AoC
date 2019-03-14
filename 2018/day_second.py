@@ -19,7 +19,7 @@ class Product:
 
 
 class Products:
-    def __init__(self, file):
+    def __init__(self, file = "input"):
         self.product_list = []
         self.parse_products(file)
 

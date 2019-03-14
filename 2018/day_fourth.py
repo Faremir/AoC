@@ -13,7 +13,7 @@ class Guard:
 
 
 class Watch:
-    def __init__(self, file):
+    def __init__(self, file = "input"):
         self.guard_dict = defaultdict(list)
         self.__parse__(file)
         self.guards_list = []

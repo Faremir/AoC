@@ -1,4 +1,4 @@
-def part_one(file):
+def part_one(file = "input"):
     result = 0
     with open(file, "r") as input_file:
         for line in input_file.readlines():

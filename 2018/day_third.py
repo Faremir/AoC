@@ -18,7 +18,7 @@ class Claim:
 
 
 class Claims:
-    def __init__(self, file):
+    def __init__(self, file = "input"):
         self.list_of_claims = []
         self.__parse__(file)
         self.claimed_indexes = defaultdict(int)

@@ -2,7 +2,7 @@ import string
 
 
 class Polymer:
-    def __init__(self, file):
+    def __init__(self, file = "input"):
         self.hash = open(file).read().strip()
 
     @staticmethod
