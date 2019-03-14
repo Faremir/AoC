@@ -67,5 +67,4 @@ class Plane:
                 return time-1
 
 
-plane = Plane("input")
-plane.aging()
+
