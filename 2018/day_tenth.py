@@ -11,6 +11,10 @@ class Point:
         self.x_pos += self.velocity[0]
         self.y_pos += self.velocity[1]
 
+    def step_back(self):
+        self.x_pos -= self.velocity[0]
+        self.y_pos -= self.velocity[1]
+
 
 class Plane:
     def __init__(self, file):
@@ -37,7 +41,7 @@ class Plane:
 
     def print_plane(self):
         y_min, y_max = self.get_min_max("y_pos")
-        x_min, x_max = plane.get_min_max("x_pos")
+        x_min, x_max = self.get_min_max("x_pos")
         for height in range(y_min - 1, y_max + 1):
             for width in range(x_min - 1, x_max + 1):
                 if any((point.y_pos == height and point.x_pos == width) for point in self.points):
@@ -53,14 +57,12 @@ class Plane:
         while True:
             time += 1
             for point in self.points:
-                point.x_pos += point.velocity[0]
-                point.y_pos += point.velocity[1]
+                point.move_point()
             y_min, y_max = self.get_min_max("y_pos")
             if y_max - y_min < min_diff:
                 min_diff = y_max - y_min
             else:
                 for point in self.points:
-                    point.x_pos -= point.velocity[0]
-                    point.y_pos -= point.velocity[1]
+                    point.step_back()
                 self.print_plane()
                 return time - 1
