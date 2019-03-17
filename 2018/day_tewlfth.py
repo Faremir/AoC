@@ -38,7 +38,8 @@ class Garden:
     def aging(self):
         for age in range(self.generations):
             for pot_index in range(2, len(self.initial_stage)-3):
-                for progress in self.progress_combinations:
+                for progress, result in self.progress_combinations.items():
+                    pass
 
 
 
