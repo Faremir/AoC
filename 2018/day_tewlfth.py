@@ -1,32 +1,12 @@
 from collections import defaultdict
 
 
-class Pot:
-    def __init__(self):
-        self.plant = False
-        self.prev = None
-        self.next = None
-
-
 class Garden:
-    def __init__(self, initial_stage, file = "input"):
-        self.initial_stage = initial_stage
-        self.first_Pot = Pot()
-        self.generat_inital_stage(self.first_Pot, 0)
+    def __init__(self, initial_stage, generations = 20, file = "input"):
+        self.initial_stage = [i for i in initial_stage]
         self.progress_combinations = defaultdict(str)
         self.parse_progress(file)
-        self.generations = 20
-
-    def generat_inital_stage(self, current_pot, index):
-        if self.initial_stage[index] == '#':
-            current_pot.plant = True
-
-        if index + 1 < len(self.initial_stage) - 1:
-            current_pot.next = Pot()
-            current_pot.next.prev = current_pot
-            current_pot = current_pot.next
-        if index + 1 <= len(self.initial_stage) - 1:
-            self.generat_inital_stage(current_pot, index + 1)
+        self.generations = generations
 
     def parse_progress(self, file):
         with open(file) as progresses:
@@ -35,25 +15,46 @@ class Garden:
                 self.progress_combinations[progress[0]] = progress[2]
         progresses.close()
 
+    def check_next_generation(self, pot_index, current_generation):
+
+        return '-'
+
     def aging(self):
-        for age in range(self.generations):
-            for pot_index in range(2, len(self.initial_stage)-3):
-                for progress, result in self.progress_combinations.items():
-                    pass
+        result = 0
+        current_generation = self.initial_stage
+        print(''.join(current_generation))
+        for age in range(1, self.generations + 1):
+            new_gen = [i for i in current_generation]
+            for pot_index in range(2, len(current_generation) - 3):
 
+                new_gen[pot_index] = '.'
+                for progress, new_plant in self.progress_combinations.items():
+                    match_count = 0
+                    for progress_range in range(-2, 3):
+                        check_index = pot_index + progress_range
+                        progress_index = progress_range + 2
+                        if progress[progress_index] == current_generation[check_index]:
+                            match_count += 1
+                        elif progress[progress_index] != current_generation[check_index]:
+                            break
 
+                        if match_count == 5:
+                            #print(progress, progress[progress_index], current_generation[check_index], progress_index, check_index, end = " ")
+                            pass
+                    if match_count == 5:
+                        #print(current_generation[pot_index], result[0])
+                        new_gen[pot_index] = new_plant[0]
+            current_generation = new_gen
 
+        for index in range(len(current_generation)-1):
+            if current_generation[index] == '#':
+                result += index-5
+        return result
 
 
 zero = "#.#####.#.#.####.####.#.#...#.......##..##.#.#.#.###..#.....#.####..#.#######.#....####.#....##....#"
-garden = Garden(zero)
-pot = garden.first_Pot
-while pot:
-    if pot.plant:
-        print("#", end = "")
-    else:
-        print(".", end = "")
-    pot = pot.next
-print("\n")
-for progress, result in garden.progress_combinations.items():
-    print(progress, " => ", result)
+test = "#..#.#..##......###...###"
+initial = "....." + zero + "..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................."
+garden = Garden(initial, 50000000000)
+next_gen = garden.aging()
+print(next_gen)
