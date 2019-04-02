@@ -107,8 +107,10 @@ def day_12():
 
 	"""
 	zero = "#.#####.#.#.####.####.#.#...#.......##..##.#.#.#.###..#.....#.####..#.#######.#....####.#....##....#"
-	garden = Garden(zero, 50000000000, True, "Y18/input")
-	print(garden.aging())
+	garden = Garden(zero, 20, False, "Y18/input")
+	print("Part one: ", garden.aging())
+	garden = Garden(zero, 50000000000, False, "Y18/input")
+	print("Part two: ", garden.aging())
 
 
 def day_13():

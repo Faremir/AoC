@@ -134,7 +134,7 @@ class Garden:
 
 		self.result = 0
 
-	def gen_init_stage(self, current_pot = None, index = 1):
+	def gen_init_stage(self, current_pot = Pot(), index = 1):
 		"""
 
 		@param current_pot:
@@ -146,6 +146,7 @@ class Garden:
 			return
 		current_pot.add_next(Pot(), self.initial_stage[index])
 		self.gen_init_stage(current_pot.next, index + 1)
+		self.head = current_pot
 
 	def gen_stage_changes(self, file):
 		"""
@@ -217,14 +218,14 @@ class Garden:
 		self.add_to_top(self.head)
 		self.add_to_end(self.tail)
 
-	def count_flowers(self):
+	def count_flowers(self,residue = 1):
 		"""
 
 		"""
 		curr_plant = self.head
 		while curr_plant:
 			if curr_plant.check_plant('#'):
-				self.result += curr_plant.get_index()
+				self.result += curr_plant.get_index() + residue
 			curr_plant = curr_plant.next
 
 	def generate_pattern(self):
@@ -235,26 +236,28 @@ class Garden:
 		string = ""
 		curr_plant = self.head
 		while curr_plant:
-			string + str(curr_plant.get_index())
+			string += curr_plant.get_plant()
 			curr_plant = curr_plant.next
 		return string, self.head.get_index()
 
-	# def check_pattern(self, str1, str2, id1, id2):
-	# 	if str1 == str2:
-	# 		return id2 - id1
-	# 	return -1
+	def check_pattern_match(self, last_pattern, old_id):
+		pattern, new_id = self.generate_pattern()
+		if last_pattern == pattern:
+			return new_id - old_id
+		return False
 
 	def aging(self):
 		"""
 
 		@return:
 		"""
-		self.head = Pot()
+		self.gen_init_stage()
 		self.head.set_plant(self.initial_stage[0])
-		self.gen_init_stage(self.head)
+
 		if self.debug:
 			self.print_generation()
-
+		last_pattern, old_id = self.generate_pattern()
+		residue = 0
 		for age in range(self.generations):
 			self.del_excess_pots()
 			self.check_next_gen()
@@ -263,12 +266,15 @@ class Garden:
 			if self.debug:
 				self.print_generation()
 
-		# pattern, id = self.generate_pattern()
-		# index_diff = self.check_pattern()
-		# if index_diff != -1:
-		# 	print(index_diff)
+			diff = self.check_pattern_match(last_pattern, old_id)
+			if diff:
+				residue = diff*(self.generations-age-1)
+				if self.debug:
+					print(diff, residue, age)
+				break
+			last_pattern, old_id = self.generate_pattern()
 
-		self.count_flowers()
+		self.count_flowers(residue)
 		return self.result
 
 	def check_next_gen(self):
@@ -304,4 +310,3 @@ class Garden:
 				print(".", end = "")
 			pot = pot.next
 		print("\n")
-
