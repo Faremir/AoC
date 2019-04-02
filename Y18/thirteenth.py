@@ -78,9 +78,4 @@ class Track:
 		return cart_list
 
 
-track = Track("input")
-# for line in track.track:
-# 	print(line)
 
-for cart_ in track.carts:
-	print(cart_.direction, " = [", cart_.coords[0], ",", cart_.coords[1], "]")

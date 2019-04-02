@@ -46,6 +46,3 @@ class Grid:
 		return result
 
 
-if __name__ == "__main__":
-	grid = Grid(8141)
-	print(grid.parse_grid())

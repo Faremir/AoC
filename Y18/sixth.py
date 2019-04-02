@@ -10,7 +10,7 @@ class Area:
         self.size = 0
 
 
-class Grid:
+class Plane:
     """
 
     """
@@ -63,7 +63,3 @@ class Grid:
         print(self.size_shared_region)
 
 
-day_sixth = Grid()
-day_sixth.get_finite_sizes()
-day_sixth.get_shared_size()
-day_sixth.print_grid()

@@ -11,12 +11,11 @@ def part_one(file = "input"):
 	return result
 
 
-def part_two():
+def part_two(file = "input"):
 	"""
 
-	@return:
+	@return:s
 	"""
-	file = "day 1.txt"
 	input_field = []
 	result = 0
 	results_list = [0]

@@ -17,6 +17,7 @@ class Pot:
 	"""
 
 	"""
+
 	def __init__(self):
 		self.plant = False
 		self.next_generation = False
@@ -120,6 +121,7 @@ class Garden:
 	"""
 
 	"""
+
 	def __init__(self, initial_stage, generations, debug = False, file = "input"):
 		self.next_generations = defaultdict(str)
 		self.gen_stage_changes(file)
@@ -276,7 +278,7 @@ class Garden:
 		curr_plant = self.head.next.next
 		while curr_plant.next.next:
 			for state, state_result in self.next_generations.items():
-				if check_progress(state, curr_plant):
+				if check_progress(curr_plant, state):
 					curr_plant.set_next_gen(state_result)
 
 			curr_plant = curr_plant.next
@@ -303,17 +305,3 @@ class Garden:
 			pot = pot.next
 		print("\n")
 
-
-zero = "#.#####.#.#.####.####.#.#...#.......##..##.#.#.#.###..#.....#.####..#.#######.#....####.#....##....#"
-garden = Garden(zero, 50000000000, True)
-print(garden.aging())
-# pot = garden.head
-# while pot:
-# 	if pot.plant:
-# 		print("#", end = "")
-# 	else:
-# 		print(".", end = "")
-# 	pot = pot.next
-# print("\n")
-# for progress, result in garden.next_generations.items():
-# 	print(progress, " => ", result)

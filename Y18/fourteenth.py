@@ -77,5 +77,4 @@ class ChocolateChart:
 		return "\nRecipes scores = \"{0}\"\nCount of recipes = {1}".format(self.get_range(), self.get_recipes_count())
 
 
-factory = ChocolateChart("880751")
-print(factory)
+
