@@ -2,17 +2,23 @@ from collections import defaultdict
 
 
 class Guard:
-    def __init__(self, id):
+    """
+
+    """
+    def __init__(self, index):
         self.total_sleep_time = 0
         self.most_frequent_minute = 0
         self.minute_frequency = 0
-        self.id = id
+        self.id = index
 
     def __repr__(self):
         return "#" + str(self.id) + " slept time:  " + str(self.total_sleep_time) + " \n\tmost frequented minut:  " + str(self.most_frequent_minute) + ":\n\t\t" + str(self.minute_frequency) + " minutes\n"
 
 
 class Watch:
+    """
+
+    """
     def __init__(self, file = "input"):
         self.guard_dict = defaultdict(list)
         self.__parse__(file)
@@ -41,6 +47,9 @@ class Watch:
                 sleep_time = []
 
     def parse_guards(self):
+        """
+
+        """
         for guard, timestamps in self.guard_dict.items():
             most_frequented_sleep_time = defaultdict(int)
             new_guard_object = Guard(int(guard[7:]))
@@ -60,6 +69,11 @@ class Watch:
             self.guards_list.append(new_guard_object)
 
     def comparator(self, comparator = None):
+        """
+
+        @param comparator:
+        @return:
+        """
         maximum = float('-inf')
         guard = None
         for item in self.guards_list:

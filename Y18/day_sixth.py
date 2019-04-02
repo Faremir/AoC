@@ -1,5 +1,8 @@
 
 class Area:
+    """
+
+    """
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -8,6 +11,9 @@ class Area:
 
 
 class Grid:
+    """
+
+    """
     def __init__(self, file = "input", distance = 10000):
         self.Areas = []
         self.__parser__(file)
@@ -23,6 +29,9 @@ class Grid:
                 self.Areas.append(Area(x, y))
 
     def get_finite_sizes(self):
+        """
+
+        """
         for y in range(self.bottom):
             for x in range(self.right):
                 infinite_area = None
@@ -39,13 +48,17 @@ class Grid:
                         infinite_area.is_finite = False
 
     def get_shared_size(self):
+        """
 
+        """
         for y in range(self.bottom + 1):
             for x in range(self.right + 1):
                 self.size_shared_region += int(sum(abs(area.x - x) + abs(area.y - y) for area in self.Areas) < self.manhatan_dist)
 
     def print_grid(self):
+        """
 
+        """
         print(max(area.size for area in self.Areas if area.is_finite))
         print(self.size_shared_region)
 

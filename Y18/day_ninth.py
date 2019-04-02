@@ -2,6 +2,9 @@ from collections import defaultdict
 
 
 class Marble:
+	"""
+
+	"""
 	def __init__(self, score):
 		self.value = score
 		self.prev = None
@@ -24,15 +27,27 @@ class Game:
 		self.last_marble_value = turns
 
 	def turn(self):
+		"""
+
+		"""
 		self.marble_value += 1
 		self.current_player += 1
 		if self.current_player > self.players_count:
 			self.current_player = 1
 
 	def add_score(self, score):
+		"""
+
+		@param score:
+		"""
 		self.players[self.current_player] += score
 
 	def new_marble(self, current):
+		"""
+
+		@param current:
+		@return:
+		"""
 		new = Marble(self.marble_value)
 		last = current.next.next
 		middle = current.next
@@ -44,6 +59,11 @@ class Game:
 
 	@staticmethod
 	def remove_marble(current):
+		"""
+
+		@param current:
+		@return:
+		"""
 		prev = current.prev
 		nextt = current.next
 		prev.next = nextt
@@ -52,18 +72,30 @@ class Game:
 
 	@staticmethod
 	def skip_marble(current):
+		"""
+
+		@param current:
+		@return:
+		"""
 		for _ in range(7):
 			current = current.prev
 		return current
 
 	@staticmethod
 	def init_first_marble():
+		"""
+
+		@return:
+		"""
 		current = Marble(0)
 		current.next = current
 		current.prev = current
 		return current
 
 	def start_game(self):
+		"""
+
+		"""
 		current = self.init_first_marble()
 		while self.marble_value <= self.last_marble_value:
 			self.turn()
@@ -76,6 +108,10 @@ class Game:
 				current = self.new_marble(current)
 
 	def game_score(self):
+		"""
+
+		@return:
+		"""
 		maximum = 0
 		for key, player in self.players.items():
 			if maximum < player:

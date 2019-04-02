@@ -3,11 +3,17 @@ from collections import defaultdict
 
 
 class Worker:
+    """
+
+    """
     def __init__(self):
         self.currently_working = False
 
 
 class Task:
+    """
+
+    """
     def __init__(self):
         self.marking = ""
         self.prerequisites = []
@@ -19,12 +25,21 @@ class Task:
 
 
 class TaskManager:
+    """
+
+    """
     def __init__(self, count_of_workers = 1, file = "input"):
         self.tasks = self.__parse__(file)
         self.workers = [Worker() for _ in range(count_of_workers)]
         self.completed_tasks = []
 
-    def create_tasks(self, marking, tasks):
+    @staticmethod
+    def create_tasks(marking, tasks):
+        """
+
+        @param marking:
+        @param tasks:
+        """
         tasks[marking].marking = marking
         tasks[marking].time_needed = string.ascii_uppercase.index(marking) + 61
 
@@ -40,9 +55,18 @@ class TaskManager:
         return [task[1] for task in tasks]
 
     def is_dequeued(self, needed_to_process):
+        """
+
+        @param needed_to_process:
+        @return:
+        """
         return True if [x for x in needed_to_process if x not in self.completed_tasks] else False
 
     def process_opened_tasks(self, task):
+        """
+
+        @param task:
+        """
         worker = next((wr for wr in self.workers if not wr.currently_working), None)
         if not self.is_dequeued(task.prerequisites) and worker:
             worker.currently_working = True
@@ -51,6 +75,9 @@ class TaskManager:
             task.time_worked = 1
 
     def set_task_completion(self):
+        """
+
+        """
         for task in self.tasks:
             if task.time_worked == task.time_needed:
                 task.working_on = False
@@ -60,6 +87,10 @@ class TaskManager:
                 self.tasks.remove(task)
 
     def process_tasks(self):
+        """
+
+        @return:
+        """
         time_to_complete = 0
         original_length = len(self.tasks)
         while len(self.completed_tasks) != original_length:

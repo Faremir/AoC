@@ -1,4 +1,7 @@
 class Cart:
+	"""
+
+	"""
 	def __init__(self, direct):
 		self.direction = direct
 		self.coords = [0, 0]
@@ -6,12 +9,19 @@ class Cart:
 		self.turn_count = 0
 
 	def move(self, next_path):
+		"""
+
+		@param next_path:
+		"""
 		if next_path == '+':
 			self.turn()
 		# move TODO
 		pass
 
 	def turn(self):
+		"""
+
+		"""
 		# [left:0, straight:1,tight:2, left:3, straight:4, right:5]
 		# [
 		if self.turn_count == 0 or self.turn_count % 3 == 0:
@@ -26,6 +36,9 @@ class Cart:
 		pass
 
 	def turn_left(self):
+		"""
+
+		"""
 		if self.direction == '<':
 			self.direction = 'v'
 		elif self.direction == 'v':
@@ -37,11 +50,18 @@ class Cart:
 
 
 class Track:
+	"""
+
+	"""
 	def __init__(self, file):
 		self.track = [str(line) for line in open(file).read().split('\n')]
 		self.carts = self.parse_carts()
 
 	def parse_carts(self):
+		"""
+
+		@return:
+		"""
 		x = 0
 		y = 0
 		cart_list = []
