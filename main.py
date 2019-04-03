@@ -1,5 +1,5 @@
-from Y18 import *
 from Y18.twelfth import *
+from Y18.thirteenth import *
 
 
 def day_1():
@@ -114,13 +114,8 @@ def day_12():
 
 
 def day_13():
-	track = Track("input")
-	# for line in track.track:
-	# 	print(line)
-
-	for cart_ in track.carts:
-		print(cart_.direction, " = [", cart_.coords[0], ",", cart_.coords[1], "]")
-	pass
+	track = Track("Y18/input")
+	print(track.run_track())
 
 
 def day_14():
@@ -129,4 +124,5 @@ def day_14():
 
 
 if __name__ == "__main__":
-	day_12()
+	#day_12()
+	day_13()
