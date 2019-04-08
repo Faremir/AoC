@@ -1,5 +1,6 @@
-from Y18.twelfth import *
+from Y18.fifteenth import *
 from Y18.thirteenth import *
+from Y18.twelfth import *
 
 
 def day_1():
@@ -123,6 +124,13 @@ def day_14():
 	print(factory)
 
 
+def day_15():
+	# print("\nAfter 0 round:")
+
+	game = Game()
+	print(game.prevent_dead_elves())
+
+
 if __name__ == "__main__":
-	#day_12()
-	day_13()
+	# day_12()
+	day_15()

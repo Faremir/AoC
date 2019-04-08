@@ -96,7 +96,7 @@ class Cart:
 
 
 class Track:
-	def __init__(self, file):
+	def __init__(self, file = 'Y18/input'):
 		self.track = [list(line) for line in open(file).read().split('\n')]
 		self.carts = self.parse_carts()
 		self.remove_carts()
