@@ -106,7 +106,7 @@ class InstructionsEffet:
 				result.append(int(lines[i + 2][k]))
 			instruction = tuple(int(x) for x in ''.join(lines[i + 1]).split(" "))
 			params = tuple(instruction[1:])
-			self.instruction_samples[(instruction[0],params)].append([init_state, result])
+			self.instruction_samples[(instruction[0], params)].append([init_state, result])
 		i += 4
 		return i
 
