@@ -1,4 +1,5 @@
 from Y18.fifteenth import *
+from Y18.sixteenth import *
 from Y18.thirteenth import *
 from Y18.twelfth import *
 
@@ -131,6 +132,12 @@ def day_15():
 	print(game.prevent_dead_elves())
 
 
+def day_16():
+	neco = InstructionsEffet('Y18\input')
+	neco.run_instructions()
+	print(neco)
+
+
 if __name__ == "__main__":
 	# day_12()
-	day_15()
+	day_16()
