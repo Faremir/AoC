@@ -2,6 +2,9 @@ from collections import defaultdict
 
 
 class Claim:
+    """
+
+    """
     def __init__(self, data):
         self.is_invalid = False
         self.id = ""
@@ -18,6 +21,9 @@ class Claim:
 
 
 class Claims:
+    """
+
+    """
     def __init__(self, file = "input"):
         self.list_of_claims = []
         self.__parse__(file)
@@ -31,19 +37,30 @@ class Claims:
                 self.list_of_claims.append(claim)
 
     def get_used_coords(self):
+        """
+
+        """
         for claim in self.list_of_claims:
             for h in range(claim.height):
                 for w in range(claim.width):
                     self.claimed_indexes[(h + claim.top, w + claim.left)] += 1
 
     def get_overlapping_area(self):
+        """
+
+        @return:
+        """
         intersection_area = 0
-        for (x, y), used_times in self.claimed_indexes.items():
+        for _, used_times in self.claimed_indexes.items():
             if used_times >= 2:
                 intersection_area += 1
         return intersection_area
 
     def get_not_overlapping(self):
+        """
+
+        @return:
+        """
         for claim in self.list_of_claims:
             for h in range(claim.height):
                 for w in range(claim.width):

@@ -3,6 +3,9 @@ from collections import Counter
 
 
 class Product:
+    """
+
+    """
     def __init__(self):
         self.id = ""
         self.letter_count = {}
@@ -10,6 +13,9 @@ class Product:
         self.three_same_indexes = False
 
     def parse_letters(self):
+        """
+
+        """
         self.letter_count = Counter(self.id)
         for _, count in self.letter_count.items():
             if count == 2 and not self.two_same_indexes:
@@ -19,11 +25,18 @@ class Product:
 
 
 class Products:
+    """
+
+    """
     def __init__(self, file = "input"):
         self.product_list = []
         self.parse_products(file)
 
     def parse_products(self, file):
+        """
+
+        @param file:
+        """
         with open(file, "r") as input_file:
             for line in input_file.readlines():
                 product = Product()
@@ -31,6 +44,10 @@ class Products:
                 self.product_list.append(product)
 
     def get_correct_products(self):
+        """
+
+        @return:
+        """
         for product_A, product_B in itertools.combinations(self.product_list, 2):
             count_of_differences = 0
             index_of_letter = 0
@@ -42,6 +59,10 @@ class Products:
                 return product_A.id[:index_of_letter] + product_A.id[(index_of_letter + 1):]
 
     def get_correct_hash(self):
+        """
+
+        @return:
+        """
         doubled_chars = 0
         tripled_chars = 0
         for product in self.product_list:
