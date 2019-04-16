@@ -1,4 +1,5 @@
 from Y18.fifteenth import *
+from Y18.seventeenth import *
 from Y18.sixteenth import *
 from Y18.thirteenth import *
 from Y18.twelfth import *
@@ -138,6 +139,15 @@ def day_16():
 	print(neco)
 
 
+def day_17():
+	reservoir = Reservoir('Y18/input')
+	reservoir.flow()
+	print(reservoir.calc_remaining_water())
+
+
+
 if __name__ == "__main__":
 	# day_12()
-	day_16()
+	# day_15()
+	# day_16()
+	# day_17()
