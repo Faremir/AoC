@@ -3,6 +3,7 @@ from Y18.seventeenth import *
 from Y18.sixteenth import *
 from Y18.thirteenth import *
 from Y18.twelfth import *
+from Y18.eigthteenth import *
 
 
 def day_1():
@@ -144,10 +145,13 @@ def day_17():
 	reservoir.flow()
 	print(reservoir.calc_remaining_water())
 
-
+def day_18():
+	area = Acres("Y18/input")
+	pass
 
 if __name__ == "__main__":
 	# day_12()
 	# day_15()
 	# day_16()
 	# day_17()
+	day_18()
