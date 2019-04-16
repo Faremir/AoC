@@ -129,5 +129,5 @@ class Reservoir:
 				all_water.pop(index)
 			else:
 				index += 1
-		resting_water =list(set(self.resting_water))
-		return (len(all_water),list(resting_water)
+		resting_water = list(set(self.resting_water))
+		return len(all_water), len(resting_water)
