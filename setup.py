@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
         name = 'AoC',
-        version = '2.0.3.1',
+        version = '1.19.05.1,
         url = 'https://jircode.com',
         license = 'GNU 3',
         author = 'faremir',
