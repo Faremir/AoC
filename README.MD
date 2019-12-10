@@ -2,7 +2,7 @@
 
 Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels. This repo is my solutions.
 
-  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Faremir/Aoc)
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Faremir/AoC)
   ![GitHub last commit](https://img.shields.io/github/last-commit/Faremir/AoC)
   ![GitHub](https://img.shields.io/github/license/Faremir/AoC)
 
