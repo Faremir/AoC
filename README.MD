@@ -18,6 +18,6 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 ## Contributing
  Not seeking contribution for now as main purpose is to learn. 
 
-P lease make sure to update tests as appropriate.
+Please make sure to update tests as appropriate.
 
 ## License
