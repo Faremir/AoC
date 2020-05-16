@@ -4,6 +4,7 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 
   ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Faremir/AoC)
   ![GitHub last commit](https://img.shields.io/github/last-commit/Faremir/AoC)
+  ![GitHub](https://img.shields.io/github/license/Faremir/AoC)
 
 ```
 ## RoadMap
@@ -17,6 +18,6 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 ## Contributing
  Not seeking contribution for now as main purpose is to learn. 
 
-P lease make sure to update tests as appropriate.
+Please make sure to update tests as appropriate.
 
 ## License

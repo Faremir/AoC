@@ -1,73 +1,39 @@
-import operator
+from Y19.classes.Computer import Computer
 
 
-class Instruction:
-    def __init__(self, code):
-        self.code = code
-        self.params_count = 2
-        self.params_id = [None for x in range(self.params_count)]
-        self.out_id = None
-
-    def halt(self):
-        return self.code != 1 and self.code != 2
-
-    def get_params_indexes(self, current_state, opcode_index):
-        for incr in range(1, self.params_count + 1):
-            self.params_id[incr - 1] = current_state[opcode_index + incr]
-
-    def get_action(self):
-        ops = {
-            1: operator.add,
-            2: operator.mul
-            }
-        return ops[self.code]
-
-    def write_action(self, memory):
-        action = self.get_action()
-        action_result = action(memory[self.params_id[0]], memory[self.params_id[1]])
-        memory[self.out_id] = action_result
+def get_restored_noun(memory):
+    int_computer = Computer(memory, [1, 2])
+    int_computer.memory[1], int_computer.memory[2] = 12, 2
+    int_computer.compute()
+    return int_computer.memory[0]
 
 
-class Computer:
-    def __init__(self):
-        self.memory = []
+def get_valid_noun_verb(memory, valid_output):
+    output = memory[0]
+    noun, verb = 0, 0
+    while output != valid_output:
+        int_computer = Computer(memory, [1, 2])
+        int_computer.memory[1], int_computer.memory[2] = noun, verb
+        int_computer.compute()
+        output = int_computer.memory[0]
+        noun, verb = incr_noun_verb(noun, verb)
+    return noun, verb - 1
 
-    def parse_memory(self, file):
-        with open(file, "r") as input_file:
-            self.memory = [int(val) for val in input_file.read().split(",")]
 
-    def get_restored_noun(self):
-        current_state = self.memory.copy()
-        current_state[1], current_state[2] = 12, 2
-        current_state = self.compute(current_state)
-        return current_state[0]
+def incr_noun_verb(noun, verb):
+    verb += 1
+    if verb == 100:
+        verb = 0
+        noun += 1
+    return noun, verb
 
-    def get_valid_noun_verb(self, valid_output):
-        output = self.memory[0]
-        noun, verb = 0, 0
-        while output != valid_output:
-            current_state = list(self.memory)
-            current_state[1], current_state[2] = noun, verb
-            current_state = self.compute(current_state)
-            output = current_state[0]
-            noun, verb = self.incr_noun_verb(noun, verb)
-        return noun, verb - 1
 
-    @staticmethod
-    def incr_noun_verb(noun, verb):
-        verb += 1
-        if verb == 100:
-            verb = 0
-            noun += 1
-        return noun, verb
+if __name__ == "__main__":
+    import os
 
-    @staticmethod
-    def compute(current_state):
-        instr = None
-        for opcode_index in range(0, len(current_state), 4):
-            instr = Instruction(current_state[opcode_index])
-            if instr.halt(): break
-            instr.get_params_indexes(current_state, opcode_index)
-            instr.out_id = current_state[opcode_index + instr.params_count + 1]
-            instr.write_action(current_state)
-        return current_state
+    file_path = os.path.abspath("../assignments/02.txt")
+    with open(file_path, "r") as input_file:
+        memory = [int(val) for val in input_file.read().split(",")]
+    print(get_restored_noun(memory))
+    noun, verb = get_valid_noun_verb(memory, 19690720)
+    print(100 * noun + verb)

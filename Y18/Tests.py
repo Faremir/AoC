@@ -5,8 +5,8 @@ def day_01(file = ""):
     """
     Test: Day 1
     """
-    print(D01.part_one(file))
-    print(D01.part_two(file))
+    yield D01.part_one(file)
+    yield D01.part_two(file)
 
 
 def day_02(file = ""):
@@ -14,10 +14,8 @@ def day_02(file = ""):
     Test: Day 2
     """
     boxes = D02.Boxes(file)
-    checksum = boxes.get_correct_hash()
-    print(checksum)
-    difference = boxes.get_correct_boxes()
-    print(difference)
+    yield boxes.get_correct_hash()
+    yield boxes.get_correct_boxes()
 
 
 def day_03(file = ""):
@@ -25,8 +23,8 @@ def day_03(file = ""):
     Test: Day 3
     """
     claims = D03.Claims(file)
-    print(claims.get_overlapping_area())
-    print(claims.get_not_overlapping())
+    yield claims.get_overlapping_area()
+    yield claims.get_not_overlapping()
 
 
 def day_04(file = ""):
@@ -101,7 +99,7 @@ def day_11(file = ""):
     Test: Day 11
     """
     grid = D11.Grid(8141)
-    print(grid.parse_grid())
+    yield grid.parse_grid()
 
 
 def day_12(file = ""):
@@ -110,9 +108,9 @@ def day_12(file = ""):
     """
     zero = "#.#####.#.#.####.####.#.#...#.......##..##.#.#.#.###..#.....#.####..#.#######.#....####.#....##....#"
     garden = D12.Garden(zero, 20, False, "Y18/input")
-    print("Part one: ", garden.aging())
+    yield garden.aging()
     garden = D12.Garden(zero, 50000000000, False, "Y18/input")
-    print("Part two: ", garden.aging())
+    yield garden.aging()
 
 
 def day_13(file = ""):
@@ -120,7 +118,7 @@ def day_13(file = ""):
     Test: Day 13
     """
     track = D13.Track("Y18/input")
-    print(track.run_track())
+    yield track.run_track()
 
 
 def day_14(file = ""):
@@ -128,7 +126,8 @@ def day_14(file = ""):
     Test: Day 14
     """
     factory = D14.ChocolateChart("880751")
-    print(factory)
+    yield factory.get_range()
+    yield factory.get_recipes_count()
 
 
 def day_15(file = ""):
@@ -167,79 +166,111 @@ def day_18(file = ""):
     print(area.result())
 
 
-pass
-
-
 def day_19(file = ""):
     """
     Test: Day 19
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
 def day_20(file = ""):
     """
     Test: Day 20
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
 def day_21(file = ""):
     """
     Test: Day 21
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
 def day_22(file = ""):
     """
     Test: Day 22
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
 def day_23(file = ""):
     """
     Test: Day 23
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
 def day_24(file = ""):
     """
     Test: Day 24
     """
-    pass
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
 
+def day_25(file = ""):
+    """
+    Test: Day 25
+    """
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
 
-def testing(default, default_format = ".txt", file = ""):
-    print("\u2560" + "\u2550" * 13 + " 2018 " + "\u2550" * 13 + "\u2551")
 
-    days = {"01": day_01, "02": day_02, "03": day_03, "04": day_04, "05": day_05, "06": day_06, "07": day_07, "08": day_08, "09": day_09, "10": day_10, "11": day_11, "12": day_12, "13": day_13, "14": day_14, "15": day_15, "16": day_16, "17": day_17, "18": day_18, "19": day_19, "20": day_20, "21": day_21, "22": day_22, "23": day_23, "24": day_24}
-    for day, func in days.items():
-        print_day(day, default, func)
+def testing(default, string_vars):
+    print(('\u2554{horizontal_line}\u2557\n'
+           '\u2551{spaces}2018{spaces}\u2551\n'
+           '\u2560{horizontal_line}\u2563')
+          .format(**string_vars,
+                  spaces = " " * 14))
+    for day_num in range(1, 26):
+        day = str(day_num).zfill(2)
+        # print(globals())
+        function = globals()["day_" + day]
+        stop = print_day(day, default, function)
+        if day_num != 25 and not stop:
+            print("\u2560{horizontal_line}\u2563".format(**string_vars))
+        else:
+            print("\u255A{horizontal_line}\u255D".format(**string_vars))
+            break
 
 
 def print_day(day, default, func):
     """
-    Prints out formatted result of both parts of each day :py:func:`day_01`
+    Prints out formatted result of both parts of each day
 
     :param day: Day number
     :param default: Use default filesystem
     :param func:
     :return:
     """
-    print("\u2551 \u2022 Day: " + day + " " * 22 + "\u2551")
+    print("\u2551 \u2022 Day: {day}{spaces}\u2551"
+          .format(day = day,
+                  spaces = " " * 22))
     try:
         if default:
-            file = "Y18/assignments/" + day + ".txt."
+            file = "Y19/assignments/" + day + ".txt."
         else:
             file = input("Enter full path to file:")
-        list(map(print_part, func(file), ("one", "two")))
+        parts = ("one", "two")
+        generator = map(print_part, func(file), parts)
+        if "#TODO" in list(generator):
+            return True
     except FileNotFoundError:
-        print("\u2560   \u25E6 " + "Input file not specified" + "   \u2551")
-    print("\u2560" + ("\u2550" * 32) + "\u2551")
+        print("\u2560{spaces}\u25E6 Input file not specified{spaces}\u2551"
+              .format(spaces = " " * 3))
 
 
 def print_part(result, num):
@@ -251,3 +282,4 @@ def print_part(result, num):
     """
     part_string = " \t\u25E6 Part " + num + ": " + str(result)
     print("\u2551 " + part_string + " " * (31 - len(part_string)) + "\u2551")
+    return result

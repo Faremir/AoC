@@ -73,8 +73,5 @@ class ChocolateChart:
 		"""
 		return str(self.sequence_length)
 
-	def __str__(self):
-		return "\nRecipes scores = \"{0}\"\nCount of recipes = {1}".format(self.get_range(), self.get_recipes_count())
-
 
 

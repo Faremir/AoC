@@ -14,12 +14,11 @@ def day_02(file = ""):
     """
     Test: Day 2
     """
-    processor = D02.Computer()
-    processor.parse_memory(file)
-    part_one = processor.get_restored_noun()
-    noun, verb = processor.get_valid_noun_verb(19690720)
-    part_two = 100 * noun + verb
-    return part_one, part_two
+    with open(file, "r") as input_file:
+        memory = [int(val) for val in input_file.read().split(",")]
+    yield D02.get_restored_noun(memory)
+    noun, verb = D02.get_valid_noun_verb(memory, 19690720)
+    yield 100 * noun + verb
 
 
 def day_03(file = ""):
@@ -28,29 +27,26 @@ def day_03(file = ""):
     """
     panel = D03.Panel()
     panel.parse_wires(file)
-    part_one = panel.get_closest_intxn()
-    # print()
-    part_two = panel.parse_steps_to_intxn()
-    return part_one, part_two
+    yield panel.get_closest_intxn()
+    yield panel.parse_steps_to_intxn()
 
 
 def day_04(file = ""):
     """
     Test: Day 4
     """
-    # TODO
-    part_one = D04.count_combinations(file, "one")
-    part_two = D04.count_combinations(file, "two")
-    return part_one, part_two
+    yield D04.count_combinations(file, "one")
+    yield D04.count_combinations(file, "two")
 
 
 def day_05(file = ""):
     """
     Test: Day 5
     """
-    # TODO
-    part_one, part_two = "#TODO", "#TODO"
-    return part_one, part_two
+    with open(file, "r") as input_file:
+        memory = [int(val) for val in input_file.read().split(",")]
+    yield D05.get_diagnostic_code(memory, [1, 2, 3, 4])
+    yield D05.get_diagnostic_code(memory, [1, 2, 3, 4, 5, 6, 7, 8])
 
 
 def day_06(file = ""):
@@ -224,11 +220,31 @@ def day_24(file = ""):
     return part_one, part_two
 
 
-def testing(default):
-    print("\u2560" + "\u2550" * 13 + " 2019 " + "\u2550" * 13 + "\u2551")
-    days = {"01": day_01, "02": day_02, "03": day_03, "04": day_04, "05": day_05, "06": day_06, "07": day_07, "08": day_08, "09": day_09, "10": day_10, "11": day_11, "12": day_12, "13": day_13, "14": day_14, "15": day_15, "16": day_16, "17": day_17, "18": day_18, "19": day_19, "20": day_20, "21": day_21, "22": day_22, "23": day_23, "24": day_24}
-    for day, func in days.items():
-        print_day(day, default, func)
+def day_25(file = ""):
+    """
+    Test: Day 25
+    """
+    # TODO
+    part_one, part_two = "#TODO", "#TODO"
+    return part_one, part_two
+
+
+def testing(default, string_vars):
+    print(('\u2554{horizontal_line}\u2557\n'
+           '\u2551{spaces}2019{spaces}\u2551\n'
+           '\u2560{horizontal_line}\u2563')
+          .format(**string_vars,
+                  spaces = " " * 14))
+    for day_num in range(1, 26):
+        day = str(day_num).zfill(2)
+        # print(globals())
+        function = globals()["day_" + day]
+        stop = print_day(day, default, function)
+        if day_num != 25 and not stop:
+            print("\u2560{horizontal_line}\u2563".format(**string_vars))
+        else:
+            print("\u255A{horizontal_line}\u255D".format(**string_vars))
+            break
 
 
 def print_day(day, default, func):
@@ -240,16 +256,21 @@ def print_day(day, default, func):
     :param func:
     :return:
     """
-    print("\u2551 \u2022 Day: " + day + " " * 22 + "\u2551")
+    print("\u2551 \u2022 Day: {day}{spaces}\u2551"
+          .format(day = day,
+                  spaces = " " * 22))
     try:
         if default:
             file = "Y19/assignments/" + day + ".txt."
         else:
             file = input("Enter full path to file:")
-        list(map(print_part, func(file), ("one", "two")))
+        parts = ("one", "two")
+        generator = map(print_part, func(file), parts)
+        if "#TODO" in list(generator):
+            return True
     except FileNotFoundError:
-        print("\u2560   \u25E6 " + "Input file not specified" + "   \u2551")
-    print("\u2560" + ("\u2550" * 32) + "\u2551")
+        print("\u2560{spaces}\u25E6 Input file not specified{spaces}\u2551"
+              .format(spaces = " " * 3))
 
 
 def print_part(result, num):
@@ -261,3 +282,4 @@ def print_part(result, num):
     """
     part_string = " \t\u25E6 Part " + num + ": " + str(result)
     print("\u2551 " + part_string + " " * (31 - len(part_string)) + "\u2551")
+    return result
