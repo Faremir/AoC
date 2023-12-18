@@ -9,7 +9,7 @@ class Opcodes:
 	def __parse_samples__(self, register, params):
 		methods = [method for method in dir(self) if method[0] != '_']
 		for method in methods:
-			self.__handler__(method, register[:], params)
+			self.parsed_sample[method] = self.__handler__(method, register[:], params)
 
 	def __handler__(self, method, register, params):
 		if not hasattr(self, method):
@@ -19,7 +19,6 @@ class Opcodes:
 			return
 		self.register = register
 		callable_method(*params)
-		self.parsed_sample[callable_method] = register
 		return self.register
 
 	def addr(self, in_a, in_b, out_c):
@@ -126,7 +125,7 @@ class InstructionsEffet:
 		for opcode, op_result in self.opcodes.parsed_sample.items():
 			if op_result == result_state:
 				count += 1
-				matching.append(opcode.__name__)
+				matching.append(opcode)
 		if count >= 3:
 			self.has_3plus_opcodes += 1
 		return matching
