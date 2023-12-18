@@ -1,8 +1,7 @@
 class Tree:
-    """
+    """ """
 
-    """
-    def __init__(self, child_count = 0, meta_count = 0):
+    def __init__(self, child_count=0, meta_count=0):
         self.child_count = child_count
         self.meta_count = meta_count
         self.children = []
@@ -50,8 +49,8 @@ def build_tree(tree_data):
         child, data_without_root = build_tree(tree_data[2:])
         root.add_child(child)
         tree_data = tree_data[:2] + data_without_root
-    root.add_meta(tree_data[2:meta_count + 2])
-    tree_data = tree_data[(meta_count + 2):]
+    root.add_meta(tree_data[2 : meta_count + 2])
+    tree_data = tree_data[(meta_count + 2) :]
 
     return root, tree_data
 
@@ -82,8 +81,3 @@ def sum_root_value(root):
         if child_index <= root.child_count:
             metadata_sum += sum_root_value(root.children[child_index - 1])
     return metadata_sum
-
-
-if __name__ == "__main__":
-    file = "input"
-    data = [int(data) for data in open(file).read().split(" ")]
